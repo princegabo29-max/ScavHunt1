@@ -432,7 +432,7 @@ input.error {
     <span class="spark spark3"></span>
     <span class="spark spark4"></span>
 </h2>
-  <input type="text" id="passwordInput" maxlength="10">
+  <input type="text" id="passwordInput" maxlength="21">
   <div class="keyboard" id="keyboard"></div>
 </div>
 
@@ -449,9 +449,7 @@ input.error {
       <h3>Congratulations!</h3>
       <p>
         Now, guess your senior! <br><br>
-        I am 5'4 ft. tall with thin body type, female, fair skin complexion,
-        medium-length straight black hair, small eyes & face,
-        has brown cat-eye glasses, and currently a 2nd year student.
+        I am male, 3rd year students, kulot, maputi na mukhang namumutla, BSED yung ID, katamtamang tangkad, and naggrow a garden
       </p>
     </div>
 
@@ -467,7 +465,7 @@ input.error {
 </div>
 
 <script>
-const correctPassword = "MICROSCOPE";
+const correctPassword = "Hydrilla verticillata";
 const keyboard = document.getElementById("keyboard");
 const passwordInput = document.getElementById("passwordInput");
 
@@ -630,3 +628,4 @@ window.onresize = () => {
 </script>
 </body>
 </html>
+
