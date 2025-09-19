@@ -5,306 +5,144 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>SALINLUNTIAN: SCAVENGER HUNT</title>
 <style>
-
 @import url('https://fonts.googleapis.com/css2?family=Baloo+2:wght@700&display=swap');
 
 body, html {
-    margin: 0;
-    padding: 0;
-    height: 100%;
-    overflow: hidden;
-    font-family: 'Georgia', serif;
-    background: #0b2e0f;
-    color: white;
-  }
+  margin: 0; padding: 0; height: 100%; overflow: hidden;
+  font-family: 'Georgia', serif; background: #0b2e0f; color: white;
+}
 
-  canvas {
-    position: fixed;
-    top: 0;
-    left: 0;
-    z-index: 0;
-    width: 100vw;
-    height: 100vh;
-    background: #123 url("GreenBG.png") no-repeat center center/cover;
-    filter: brightness(0.8);
-  }
+canvas {
+  position: fixed; top:0; left:0; z-index:0;
+  width:100vw; height:100vh;
+  background: #123 url("GreenBG.png") no-repeat center center/cover;
+  filter: brightness(0.8);
+}
 
-  .watermark {
-    position: fixed;
-    bottom: 1vh;
-    right: 1vw;
-    display: flex;
-    align-items: center;
-    gap: 0.1rem;
-    z-index: 3;
-    pointer-events: none;
-  }
+.watermark {
+  position: fixed; bottom:1vh; right:1vw; display:flex; align-items:center; gap:0.1rem;
+  z-index:3; pointer-events:none;
+}
 
-  .watermark img {
-    opacity: 0.4;
-    display: block;
-    height: auto;
-  }
+.watermark img { opacity:0.4; display:block; height:auto; }
+.wm-salinluntian { max-height:4rem; }
+.wm-scavengerhunt { max-height:1rem; }
 
-  .wm-salinluntian { max-height: 4rem; }
-  .wm-scavengerhunt { max-height: 1rem; }
+/* Scroll container */
+.scroll-container { width:100vw; height:100vh; overflow-x:auto; overflow-y:hidden; -webkit-overflow-scrolling:touch; scroll-snap-type:x mandatory; display:flex; justify-content:center; align-items:center; }
+.scroll-content { display:flex; flex-direction:row; min-width:100vw; height:100%; justify-content:center; align-items:center; position:relative; }
 
-  /* Horizontal scroll container */
-  .scroll-container {
-    width: 100vw;
-    height: 100vh;
-    overflow-x: auto;
-    overflow-y: hidden;
-    -webkit-overflow-scrolling: touch;
-    scroll-snap-type: x mandatory;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-
-  .scroll-content {
-    display: flex;
-    flex-direction: row;
-    min-width: 100vw;
-    height: 100%;
-    justify-content: center;
-    align-items: center;
-    position: relative;
-  }
-
-  /* Login container */
-  .login-container {
-    position: relative;
-    z-index: 2;
-    text-align: center;
-    background: none;
-    padding: 0;
-    border: none;
-    box-shadow: none;
-    max-width: 90vw;
-    width: 350px;
-    scroll-snap-align: center;
-  }
-
-  @import url('https://fonts.googleapis.com/css2?family=Baloo+2:wght@700&display=swap');
-
+/* Login container */
+.login-container { position:relative; z-index:2; text-align:center; background:none; padding:0; border:none; box-shadow:none; max-width:90vw; width:350px; scroll-snap-align:center; }
 .login-container h2 {
   font-family: 'Baloo 2', sans-serif !important;
-  font-size: 2.8rem;
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
-  color: white;
-line-height: 1.1; /* reduces extra vertical space */
-    margin-bottom: 1rem; /* keeps it close to input */
-  text-shadow: 
-    0 2px 2px rgba(0,0,0,0.6),
-    0 0 8px #00ffcc,
-    0 0 16px #00cc88,
-    0 0 28px #009966;
-  position: relative;
-  display: inline-block;
-  animation: shinePulse 3s infinite;
+  font-size: 2.8rem; text-transform:uppercase; letter-spacing:0.06em; color:white; line-height:1.1; margin-bottom:1rem;
+  text-shadow:0 2px 2px rgba(0,0,0,0.6),0 0 8px #00ffcc,0 0 16px #00cc88,0 0 28px #009966;
+  position:relative; display:inline-block; animation: shinePulse 3s infinite;
 }
 
 @keyframes shinePulse {
-    0% { text-shadow:0 2px 2px rgba(0,0,0,0.6),0 0 10px #00ffcc,0 0 20px #00cc88,0 0 35px #009966; color: #fff; }
-    50% { text-shadow:0 2px 2px rgba(0,0,0,0.6),0 0 5px #00cc88,0 0 10px #009966,0 0 18px #007744; color: #f2f2f2; }
-    100% { text-shadow:0 2px 2px rgba(0,0,0,0.6),0 0 10px #00ffcc,0 0 20px #00cc88,0 0 35px #009966; color: #fff; }
-  }
-
-  .login-container input {
-    display: block;
-    margin: 0 auto 2vh auto;
-    padding: 0.8rem;
-    font-size: 1.1rem;
-    border-radius: 0.8rem;
-    border: 1px solid #ccc;
-    text-align: center;
-    width: 90%;
-    max-width: 220px;
-    box-sizing: border-box;
-    font-family: 'Courier New', monospace;
-    font-style: italic;
-  }
-
-  /* Keyboard styling same as original (buttons, hover, active) */
-/* Keyboard container */
-.keyboard {
-  margin-top: 1vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 0.5vh;
-  width: 100%;
-  max-width: 350px;
-  box-sizing: border-box;
-  background: none;
+  0% { text-shadow:0 2px 2px rgba(0,0,0,0.6),0 0 10px #00ffcc,0 0 20px #00cc88,0 0 35px #009966; color:#fff; }
+  50% { text-shadow:0 2px 2px rgba(0,0,0,0.6),0 0 5px #00cc88,0 0 10px #009966,0 0 18px #007744; color:#f2f2f2; }
+  100% { text-shadow:0 2px 2px rgba(0,0,0,0.6),0 0 10px #00ffcc,0 0 20px #00cc88,0 0 35px #009966; color:#fff; }
 }
 
-/* Keyboard rows */
-.keyboard-row {
-  display: flex;
-  justify-content: center;
-  gap: 0.3vw;
-  flex-wrap: nowrap;
-  width: 100%;
+.login-container input {
+  display:block; margin:0 auto 2vh auto; padding:0.8rem; font-size:1.1rem;
+  border-radius:0.8rem; border:1px solid #ccc; text-align:center; width:90%; max-width:220px; box-sizing:border-box;
+  font-family:'Courier New', monospace; font-style:italic;
 }
 
-/* Stagger rows like phone keyboard */
-.keyboard-row:nth-child(2) { padding-left: 5%; }
-.keyboard-row:nth-child(3) { padding-left: 10%; }
-
-/* Letter buttons */
+/* Keyboard styling */
+.keyboard { margin-top:1vh; display:flex; flex-direction:column; align-items:center; gap:0.5vh; width:100%; max-width:350px; box-sizing:border-box; }
+.keyboard-row { display:flex; justify-content:center; gap:0.3vw; flex-wrap:nowrap; width:100%; }
+.keyboard-row:nth-child(2) { padding-left:5%; }
+.keyboard-row:nth-child(3) { padding-left:10%; }
 .keyboard button {
-  flex: 1 1 auto;
-  min-width: 2.5rem;
-  max-width: 50px;
-  padding: 0.6rem 0.4rem;
+  flex:1 1 auto; min-width:2.5rem; max-width:50px; padding:0.6rem 0.4rem;
   font-size: clamp(0.8rem, 2.5vw, 1rem);
-  border: none;
-  border-radius: 0.8rem;
-  font-family: 'Georgia', serif;
-  font-weight: bold;
-  color: #fff;
-  cursor: pointer;
-  background: url("https://www.transparenttextures.com/patterns/wood-pattern.png"),
-              linear-gradient(145deg, #5c3d1e, #3e2a15);
-  background-blend-mode: overlay;
-  background-size: cover;
-  box-shadow: 0 0.3rem 0.4rem rgba(0,0,0,0.6),
-              inset -0.2rem -0.2rem 0.4rem rgba(0,0,0,0.4),
-              inset 0.2rem 0.2rem 0.4rem rgba(255,255,255,0.1);
+  border:none; border-radius:0.8rem; font-family:'Georgia', serif; font-weight:bold; color:#fff; cursor:pointer;
+  background: url("https://www.transparenttextures.com/patterns/wood-pattern.png"), linear-gradient(145deg, #5c3d1e, #3e2a15);
+  background-blend-mode: overlay; background-size: cover;
+  box-shadow:0 0.3rem 0.4rem rgba(0,0,0,0.6), inset -0.2rem -0.2rem 0.4rem rgba(0,0,0,0.4), inset 0.2rem 0.2rem 0.4rem rgba(255,255,255,0.1);
   transition: all 0.2s ease;
 }
+.keyboard button.shift,.keyboard button.del,.keyboard button.enter { flex:0 0 30%; min-width:65px; }
+.keyboard button.space { flex:0 0 40%; min-width:80px; }
+.keyboard button:hover { background:url("https://www.transparenttextures.com/patterns/wood-pattern.png"), linear-gradient(145deg, #4b6d35, #2f4d25); background-size:cover; color:#dfffdf; box-shadow:0 0 1rem #4caf50, inset 0 0 0.5rem rgba(0,0,0,0.7); transform:translateY(-0.2rem) scale(1.05);}
+.keyboard button:active { transform:translateY(0.2rem) scale(0.95); box-shadow: inset 0 0 0.8rem rgba(0,0,0,0.8);}
+.hidden { display:none; }
 
-/* Special keys */
-.keyboard button.shift,
-.keyboard button.del,
-.keyboard button.enter { flex: 0 0 30%; min-width: 65px; }
-.keyboard button.space { flex: 0 0 40%; min-width: 80px; }
+/* Envelope container */
+.envelope-container { position:relative; text-align:center; z-index:2; max-width:90vw; width:400px; scroll-snap-align:center; }
+.envelope-wrapper { position:relative; display:inline-block; width:100%; cursor:pointer; }
+.envelope-wrapper.shake { animation: shake 2s infinite; }
 
-/* Hover & active */
-.keyboard button:hover {
-  background: url("https://www.transparenttextures.com/patterns/wood-pattern.png"),
-              linear-gradient(145deg, #4b6d35, #2f4d25);
-  background-size: cover;
-  color: #dfffdf;
-  box-shadow: 0 0 1rem #4caf50, inset 0 0 0.5rem rgba(0,0,0,0.7);
-  transform: translateY(-0.2rem) scale(1.05);
+@keyframes shake {
+  0% { transform: translate(0,0) rotate(0deg); }
+  10% { transform: translate(-2px,1px) rotate(-2deg); }
+  20% { transform: translate(2px,-1px) rotate(2deg); }
+  30% { transform: translate(-2px,1px) rotate(-2deg); }
+  40% { transform: translate(2px,-1px) rotate(2deg); }
+  50% { transform: translate(0,0) rotate(0deg); }
+  100% { transform: translate(0,0) rotate(0deg); }
 }
 
-.keyboard button:active {
-  transform: translateY(0.2rem) scale(0.95);
-  box-shadow: inset 0 0 0.8rem rgba(0,0,0,0.8);
+.envelope-wrapper::before {
+  content:""; position:absolute; top:-5%; left:-5%; right:-5%; bottom:-5%;
+  background:radial-gradient(circle, rgba(255,223,128,0.8) 0%, transparent 70%);
+  filter:blur(2vw); z-index:-1; border-radius:50%;
 }
 
-.hidden {
-  display: none;
+.envelope-wrapper img { width:100%; max-width:300px; height:auto; cursor:pointer; animation: envelopeGlow 3s infinite alternate; }
+
+@keyframes envelopeGlow {
+  0% { filter: drop-shadow(0 0 5px #ffd700); }
+  50% { filter: drop-shadow(0 0 15px #ffec00); }
+  100% { filter: drop-shadow(0 0 5px #ffd700); }
 }
 
+.letter {
+  display:none; position:absolute; top:-16vh; left:50%; transform:translateX(-50%) translateY(0);
+  width:90%; max-width:360px; min-width:200px; padding:4% 5%; background:url("paperletter.png") no-repeat center center;
+  background-size:110% 110%; font-family:'Georgia', serif; color:#2e2a23; font-size:1rem; line-height:1.5; opacity:0; transition:all 1s ease; z-index:5; box-sizing:border-box;
+}
+.letter h3 { margin-bottom:1vh; font-size:1.5rem; text-align:center; color:#2b1f0e; }
+.letter p { margin:0.5vh 0; font-size:1rem; text-align:justify; }
+.letter.show { display:block; opacity:1; transform:translateX(-50%) translateY(-5vh); }
 
-  /* Envelope container */
-  .envelope-container {
-    position: relative;
-    text-align: center;
-    z-index: 2;
-    max-width: 90vw;
-    width: 400px;
-    scroll-snap-align: center;
-  }
-
-  .envelope-wrapper {
-    position: relative;
-    display: inline-block;
-    animation: shake 3s infinite;
-    width: 100%;
-  }
-
-  .envelope-wrapper::before {
-    content: "";
-    position: absolute;
-    top: -5%; left: -5%; right: -5%; bottom: -5%;
-    background: radial-gradient(circle, rgba(255,223,128,0.8) 0%, transparent 70%);
-    animation: shimmer 2s infinite alternate;
-    filter: blur(2vw);
-    z-index: -1;
-    border-radius: 50%;
-  }
-
-  .envelope-wrapper img {
-    width: 100%;
-    max-width: 300px;
-    height: auto;
-    cursor: pointer;
-    animation: envelopeGlow 3s infinite alternate;
-  }
-
-  /* Letter styling */
-  .letter {
-    display: none;
-    position: absolute;
-    top: -16vh;
-    left: 50%;
-    transform: translateX(-50%) translateY(0);
-    width: 90%;
-    max-width: 360px;
-    min-width: 200px;
-    padding: 4% 5%;
-    background: url("paperletter.png") no-repeat center center;
-    background-size: 110% 110%;
-    font-family: 'Georgia', serif;
-    color: #2e2a23;
-    font-size: 1rem;
-    line-height: 1.5;
-    opacity: 0;
-    transition: all 1s ease;
-    z-index: 5;
-    box-sizing: border-box;
-  }
-
-  .letter h3 { margin-bottom: 1vh; font-size: 1.5rem; text-align: center; color: #2b1f0e; }
-  .letter p { margin: 0.5vh 0; font-size: 1rem; text-align: justify; }
-
-  .letter::before {
-    content: "";
-    position: absolute;
-    top: 5%; left: 5%;
-    width: 90%; height: 90%;
-    background: url("https://www.transparenttextures.com/patterns/paper-fibers.png");
-    opacity: 0.2;
-    pointer-events: none;
-    background-size: cover;
-  }
-
-  .letter.show {
-    display: block;
-    opacity: 1;
-    transform: translateX(-50%) translateY(-5vh);
-  }
-
-  @media (max-width: 480px) { .login-container h2 { font-size: 1.2rem; } }
+@media(max-width:480px){
+.scroll-container{overflow:hidden;}
+.scroll-content{flex-direction:column; justify-content:flex-start; align-items:center; height:100vh;}
+.login-container{width:90vw; padding:0.5rem;}
+.login-container h2{font-size:1.5rem; line-height:1.2;}
+.login-container input{width:85%; font-size:1rem; padding:0.6rem;}
+.keyboard{max-width:95vw;}
+.keyboard-row{gap:1vw;}
+.keyboard button{font-size:clamp(0.7rem,3vw,0.9rem); min-width:2rem; padding:0.5rem 0.3rem;}
+.keyboard button.shift,.keyboard button.del,.keyboard button.enter{flex:1 1 30%; min-width:40px;}
+.keyboard button.space{flex:1 1 50%; min-width:60px;}
+.envelope-container{width:90vw;}
+.envelope-wrapper img{max-width:250px;}
+.letter{width:90%; max-width:300px; top:-12vh; font-size:0.9rem;}
+.letter h3{font-size:1.2rem;}
+}
 </style>
 </head>
 <body>
+
 <canvas id="sparks"></canvas>
 
 <div class="scroll-container">
   <div class="scroll-content">
-
     <div class="login-container" id="login">
-      <h2>Enter Password
-        <span class="spark spark1"></span>
-        <span class="spark spark2"></span>
-        <span class="spark spark3"></span>
-        <span class="spark spark4"></span>
-      </h2>
+      <h2>Enter Password</h2>
       <input type="text" id="passwordInput" maxlength="21">
       <div class="keyboard" id="keyboard"></div>
     </div>
 
     <div class="envelope-container hidden" id="envelopeSection">
-      <div class="envelope-wrapper">
-        <div class="gold-burst" id="goldBurst"></div>
+      <div class="envelope-wrapper shake" id="envelopeWrapper">
         <div class="letter" id="letter">
           <h3>Congratulations!</h3>
           <p>
@@ -313,11 +151,6 @@ line-height: 1.1; /* reduces extra vertical space */
           </p>
         </div>
         <img src="Envelope.png" id="envelope" alt="Envelope">
-        <div class="gold-dust" style="top:5%; left:10%; width:0.4rem; height:0.4rem; animation-duration:5s;"></div>
-        <div class="gold-dust" style="top:15%; left:35%; width:0.5rem; height:0.5rem; animation-duration:6s;"></div>
-        <div class="gold-dust" style="top:25%; left:60%; width:0.3rem; height:0.3rem; animation-duration:4s;"></div>
-        <div class="gold-dust" style="top:10%; left:80%; width:0.6rem; height:0.6rem; animation-duration:7s;"></div>
-        <div class="gold-dust" style="top:20%; left:5%; width:0.5rem; height:0.5rem; animation-duration:5.5s;"></div>
       </div>
     </div>
 
@@ -325,123 +158,94 @@ line-height: 1.1; /* reduces extra vertical space */
       <img src="SALINLUNTIAN.png" alt="SALINLUNTIAN" class="wm-salinluntian">
       <img src="scavenger hunt (2).png" alt="Scavenger Hunt" class="wm-scavengerhunt">
     </div>
-
   </div>
 </div>
 
 <script>
-const correctPassword = "Hydrilla verticillata";
-const keyboard = document.getElementById("keyboard");
-const passwordInput = document.getElementById("passwordInput");
-let isUppercase = true;
+// Password & keyboard
+const correctPassword="Hydrilla verticillata";
+const keyboard=document.getElementById("keyboard");
+const passwordInput=document.getElementById("passwordInput");
+let isUppercase=true;
+const keyLayout=["QWERTYUIOP","ASDFGHJKL","ZXCVBNM"];
 
-const keyLayout = ["QWERTYUIOP","ASDFGHJKL","ZXCVBNM"];
-
-function renderKeyboard() {
-  keyboard.innerHTML = "";
-
-  // Create rows for letters
-  keyLayout.forEach((row, idx) => {
-    const rowDiv = document.createElement("div");
+function renderKeyboard(){
+  keyboard.innerHTML="";
+  keyLayout.forEach(row=>{
+    const rowDiv=document.createElement("div");
     rowDiv.classList.add("keyboard-row");
-    row.split("").forEach(letter => {
-      const btn = document.createElement("button");
-      btn.textContent = isUppercase ? letter.toUpperCase() : letter.toLowerCase();
-      btn.onclick = () => passwordInput.value += btn.textContent;
+    row.split("").forEach(letter=>{
+      const btn=document.createElement("button");
+      btn.textContent=isUppercase?letter.toUpperCase():letter.toLowerCase();
+      btn.onclick=()=>passwordInput.value+=btn.textContent;
       rowDiv.appendChild(btn);
     });
     keyboard.appendChild(rowDiv);
   });
-
-  // Control row
-  const controlRow = document.createElement("div");
-  controlRow.classList.add("keyboard-row");
-
-  const shift = document.createElement("button");
-  shift.textContent = "⇧";
-  shift.classList.add("shift");
-  shift.onclick = () => { isUppercase = !isUppercase; renderKeyboard(); };
-  controlRow.appendChild(shift);
-
-  const del = document.createElement("button");
-  del.textContent = "⌫";
-  del.classList.add("del");
-  del.onclick = () => passwordInput.value = passwordInput.value.slice(0, -1);
-  controlRow.appendChild(del);
-
-  const space = document.createElement("button");
-  space.textContent = "Space";
-  space.classList.add("space");
-  space.onclick = () => passwordInput.value += " ";
-  controlRow.appendChild(space);
-
-  const enter = document.createElement("button");
-  enter.textContent = "Enter";
-  enter.classList.add("enter");
-  enter.onclick = checkPassword;
-  controlRow.appendChild(enter);
-
+  const controlRow=document.createElement("div"); controlRow.classList.add("keyboard-row");
+  const shift=document.createElement("button"); shift.textContent="⇧"; shift.classList.add("shift");
+  shift.onclick=()=>{isUppercase=!isUppercase; renderKeyboard();}; controlRow.appendChild(shift);
+  const del=document.createElement("button"); del.textContent="⌫"; del.classList.add("del");
+  del.onclick=()=>passwordInput.value=passwordInput.value.slice(0,-1); controlRow.appendChild(del);
+  const space=document.createElement("button"); space.textContent="Space"; space.classList.add("space");
+  space.onclick=()=>passwordInput.value+=" "; controlRow.appendChild(space);
+  const enter=document.createElement("button"); enter.textContent="Enter"; enter.classList.add("enter");
+  enter.onclick=checkPassword; controlRow.appendChild(enter);
   keyboard.appendChild(controlRow);
 }
-
-// Trigger Enter key
-passwordInput.addEventListener("keyup", e => { if (e.key === "Enter") checkPassword(); });
-
+passwordInput.addEventListener("keyup",e=>{if(e.key==="Enter")checkPassword();});
 renderKeyboard();
-passwordInput.addEventListener("keyup", (e) => { if (e.key === "Enter") checkPassword(); });
 
-function checkPassword() {
-  if (passwordInput.value.trim().toUpperCase() === correctPassword.toUpperCase()) {
-    flashSparks("green"); speedBoost();
+function checkPassword(){
+  if(passwordInput.value.trim().toUpperCase()===correctPassword.toUpperCase()){
     document.getElementById("login").classList.add("hidden");
     document.getElementById("envelopeSection").classList.remove("hidden");
-  } else {
-    flashSparks("red"); speedBoost();
-    passwordInput.classList.add("error");
-    setTimeout(() => passwordInput.classList.remove("error"), 400);
-    passwordInput.value = "";
-  }
+  } else { passwordInput.value=""; }
 }
 
-const envelope = document.getElementById("envelope");
-const goldBurst = document.getElementById("goldBurst");
-const letter = document.getElementById("letter");
-let isOpened = false;
+// Sparks & envelope animation
+const canvas=document.getElementById("sparks"); const ctx=canvas.getContext("2d");
+canvas.width=window.innerWidth; canvas.height=window.innerHeight;
+let sparks=[]; for(let i=0;i<100;i++){ sparks.push({ x:Math.random()*canvas.width, y:Math.random()*canvas.height, radius:Math.random()*2+1, dx:(Math.random()-0.5)*0.6, dy:(Math.random()-0.5)*0.6, color:"yellow"}); }
+let sparksBurst=[]; let gems=[];
 
-envelope.addEventListener("click", () => {
-  if (isOpened) return;
-  envelope.src = "openenve.png";
-  goldBurst.classList.remove("active"); 
-  void goldBurst.offsetWidth; 
-  goldBurst.classList.add("active");
+const envelopeWrapper=document.getElementById("envelopeWrapper"); const envelope=document.getElementById("envelope");
+const letter=document.getElementById("letter");
+
+envelopeWrapper.addEventListener("click",()=>{
+  if(envelopeWrapper.dataset.opened==="true")return;
+  envelope.src="openenve.png";
   letter.classList.add("show");
-  flashSparks("green"); speedBoost();
-  isOpened = true;
+  envelopeWrapper.classList.remove("shake");
+  // Gold sparks burst
+  for(let i=0;i<50;i++){ sparksBurst.push({x:canvas.width/2, y:canvas.height/2, dx:(Math.random()-0.5)*8, dy:(Math.random()-1)*8, radius:Math.random()*2+1, color:"gold", life:60}); }
+  // Green gems
+  for(let i=0;i<20;i++){ gems.push({x:Math.random()*canvas.width, y:-10, dx:(Math.random()-0.5)*2, dy:Math.random()*2+1, radius:Math.random()*4+2, alpha:1, life:200, trail:[]}); }
+  envelopeWrapper.dataset.opened="true";
 });
 
-const canvas = document.getElementById("sparks");
-const ctx = canvas.getContext("2d");
-canvas.width = window.innerWidth;
-canvas.height = window.innerHeight;
-let sparks = [];
-const numSparks = 100;
-for (let i = 0; i < numSparks; i++) {
-  sparks.push({ x: Math.random() * canvas.width, y: Math.random() * canvas.height, radius: Math.random() * 2 + 1, dx: (Math.random() - 0.5) * 0.6, dy: (Math.random() - 0.5) * 0.6, color: "yellow"});
-}
-function drawSparks() {
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
-  sparks.forEach(s => {
-    ctx.beginPath(); ctx.arc(s.x, s.y, s.radius, 0, Math.PI * 2); ctx.fillStyle = s.color; ctx.shadowColor = s.color; ctx.shadowBlur = 15; ctx.fill();
-    s.x += s.dx; s.y += s.dy;
-    if (s.x < 0 || s.x > canvas.width) s.dx *= -1;
-    if (s.y < 0 || s.y > canvas.height) s.dy *= -1;
-  });
+function drawSparks(){
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+  sparks.forEach(s=>{ ctx.beginPath(); ctx.arc(s.x,s.y,s.radius,0,Math.PI*2); ctx.fillStyle=s.color; ctx.shadowColor=s.color; ctx.shadowBlur=15; ctx.fill(); s.x+=s.dx; s.y+=s.dy; if(s.x<0||s.x>canvas.width)s.dx*=-1; if(s.y<0||s.y>canvas.height)s.dy*=-1; });
+
+  for(let i=sparksBurst.length-1;i>=0;i--){
+    const s=sparksBurst[i]; ctx.beginPath(); ctx.arc(s.x,s.y,s.radius,0,Math.PI*2); ctx.fillStyle=s.color; ctx.shadowColor=s.color; ctx.shadowBlur=10; ctx.fill();
+    s.x+=s.dx; s.y+=s.dy; s.dy+=0.1; s.life--; if(s.life<=0)sparksBurst.splice(i,1);
+  }
+
+  for(let i=gems.length-1;i>=0;i--){
+    const g=gems[i]; ctx.beginPath(); ctx.arc(g.x,g.y,g.radius,0,Math.PI*2); ctx.fillStyle=`rgba(0,255,136,${g.alpha})`; ctx.shadowColor="#00FF88"; ctx.shadowBlur=10; ctx.fill();
+    g.trail.push({x:g.x,y:g.y,alpha:g.alpha}); if(g.trail.length>8)g.trail.shift();
+    g.trail.forEach((t,index)=>{ctx.beginPath();ctx.arc(t.x,t.y,g.radius*(0.6-index*0.07),0,Math.PI*2);ctx.fillStyle=`rgba(0,255,136,${t.alpha*0.6})`;ctx.shadowBlur=5;ctx.fill();});
+    g.x+=g.dx; g.y+=g.dy; if(g.y+g.radius>=canvas.height){ g.y=canvas.height-g.radius; g.dy*=-0.6; g.dx*=0.8; }
+    g.dy+=0.05; g.alpha-=0.004; g.life--; if(g.life<=0||g.alpha<=0)gems.splice(i,1);
+  }
+
   requestAnimationFrame(drawSparks);
 }
 drawSparks();
-function flashSparks(color) { sparks.forEach(s => s.color = color); setTimeout(() => { sparks.forEach(s => s.color = "yellow"); }, 600); }
-function speedBoost() { sparks.forEach(s => { s.dx *= 3; s.dy *= 3; }); setTimeout(() => { sparks.forEach(s => { s.dx /= 3; s.dy /= 3; }); }, 800); }
-window.onresize = () => { canvas.width = window.innerWidth; canvas.height = window.innerHeight; };
+window.onresize=()=>{canvas.width=window.innerWidth; canvas.height=window.innerHeight;};
 </script>
+
 </body>
 </html>
