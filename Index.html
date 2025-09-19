@@ -22,8 +22,8 @@
     top: 0;
     left: 0;
     z-index: 0;
-    width: 100%;
-    height: 100%;
+    width: 100vw;
+  height: 100vh;
     background: #123 url("GreenBG.png") no-repeat center center/cover;
     filter: brightness(0.8);
   }
@@ -179,12 +179,12 @@ font-family: 'Courier New', monospace;
 .keyboard div {
   display: flex;
   justify-content: center;
-  gap: 0.5vw; /* horizontal spacing between keys */
+  gap: 2vw;
   width: 100%;
 }
 
   .keyboard button {
-    padding: 0.8rem 1rem;
+    padding: 0.5rem 0.8rem;
     border: none;
     border-radius: 0.8rem;
     font-size: 1rem;
@@ -226,8 +226,8 @@ font-family: 'Courier New', monospace;
     transform: translate(-50%, -50%);
     text-align: center;
     z-index: 2;
-    max-width: 90vw;
-    width: 400px;
+    width: 80vw;
+  max-width: 300px;
   }
 
   .envelope-wrapper {
@@ -338,8 +338,8 @@ input.error {
     left: 50%;
     transform: translateX(-50%) translateY(0);
     width: 90%;
-    max-width: 360px;
-    min-width: 200px;
+  max-width: 280px;
+  min-width: 180px;
     padding: 4% 5%;
     background: url("paperletter.png") no-repeat center center;
     background-size: 110% 110%;
@@ -401,20 +401,16 @@ input.error {
     transform: translateX(-50%) translateY(-5vh);
 }
 @media (max-width: 480px) {
-  .login-container h2 { font-size: 1.2rem; }
-  .keyboard button { font-size: 1rem; padding: 0.9rem; }
-  .letter { font-size: 0.75rem; padding: 7%; }
+  .login-container {
+    width: 90vw;
+    padding: 2vw;
+  }
+  .login-container h2 { font-size: 1.8rem; }
+  .keyboard button { font-size: 0.9rem; padding: 0.6rem; }
+  .letter { font-size: 0.7rem; padding: 5%; top: -15vh; }
+  .letter h3 { font-size: 1rem; }
 }
 
-/* Responsive adjustments */
-@media (max-width: 768px) {
-    .letter { font-size: 0.9rem; padding: 5%; top: -10vh; }
-    .letter h3 { font-size: 1.2rem; }
-}
-@media (max-width: 480px) {
-    .letter { font-size: 0.8rem; padding: 6%; top: -12vh; }
-    .letter h3 { font-size: 1rem; }
-}
 </style>
 </head>
 <body>
@@ -573,7 +569,7 @@ canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
 
 let sparks = [];
-const numSparks = 100;
+const numSparks = window.innerWidth < 480 ? 50 : 100;
 
 for (let i = 0; i < numSparks; i++) {
   sparks.push({
