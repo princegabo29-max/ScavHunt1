@@ -5,7 +5,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>SALINLUNTIAN: SCAVENGER HUNT</title>
 <style>
-  body, html {
+
+@import url('https://fonts.googleapis.com/css2?family=Baloo+2:wght@700&display=swap');
+
+body, html {
     margin: 0;
     padding: 0;
     height: 100%;
@@ -86,24 +89,24 @@
   @import url('https://fonts.googleapis.com/css2?family=Baloo+2:wght@700&display=swap');
 
 .login-container h2 {
-    font-family: 'Baloo 2', cursive;
-    font-size: 2.8rem; /* keep same as desktop */
-    text-align: center;
-    text-transform: uppercase;
-    letter-spacing: 0.06em;
-    color: white;
-    text-shadow: 
-        0 2px 2px rgba(0,0,0,0.6),
-        0 0 8px #00ffcc,
-        0 0 16px #00cc88,
-        0 0 28px #009966;
-    position: relative;
-    display: inline-block;
-    animation: shinePulse 3s infinite;
+  font-family: 'Baloo 2', sans-serif !important;
+  font-size: 2.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: white;
+line-height: 1.1; /* reduces extra vertical space */
+    margin-bottom: 1rem; /* keeps it close to input */
+  text-shadow: 
+    0 2px 2px rgba(0,0,0,0.6),
+    0 0 8px #00ffcc,
+    0 0 16px #00cc88,
+    0 0 28px #009966;
+  position: relative;
+  display: inline-block;
+  animation: shinePulse 3s infinite;
 }
 
-/* Remove any @media rules that shrink the font on mobile */
-  @keyframes shinePulse {
+@keyframes shinePulse {
     0% { text-shadow:0 2px 2px rgba(0,0,0,0.6),0 0 10px #00ffcc,0 0 20px #00cc88,0 0 35px #009966; color: #fff; }
     50% { text-shadow:0 2px 2px rgba(0,0,0,0.6),0 0 5px #00cc88,0 0 10px #009966,0 0 18px #007744; color: #f2f2f2; }
     100% { text-shadow:0 2px 2px rgba(0,0,0,0.6),0 0 10px #00ffcc,0 0 20px #00cc88,0 0 35px #009966; color: #fff; }
@@ -250,6 +253,7 @@
     transform: translateX(-50%) translateY(-5vh);
   }
 
+  @media (max-width: 480px) { .login-container h2 { font-size: 1.2rem; } }
 </style>
 </head>
 <body>
@@ -257,12 +261,6 @@
 
 <div class="scroll-container">
   <div class="scroll-content">
-
-<link rel="preload" href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@700&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
-<noscript>
-  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@700&display=swap" rel="stylesheet">
-</noscript>
-
 
     <div class="login-container" id="login">
       <h2>Enter Password
