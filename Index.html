@@ -128,51 +128,80 @@ line-height: 1.1; /* reduces extra vertical space */
   }
 
   /* Keyboard styling same as original (buttons, hover, active) */
-  .keyboard {
-    margin-top: 1vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 0.6vh;
-    width: 100%;
-    background: none;
-    box-shadow: none;
-    border: none;
-  }
+/* Keyboard container */
+.keyboard {
+  margin-top: 1vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5vh;
+  width: 100%;
+  max-width: 350px;
+  box-sizing: border-box;
+  background: none;
+}
 
-  .keyboard div { display: flex; justify-content: center; gap: 0.5vw; width: 100%; }
+/* Keyboard rows */
+.keyboard-row {
+  display: flex;
+  justify-content: center;
+  gap: 0.3vw;
+  flex-wrap: nowrap;
+  width: 100%;
+}
 
-  .keyboard button {
-    padding: 0.8rem 1rem;
-    border: none;
-    border-radius: 0.8rem;
-    font-size: 1rem;
-    cursor: pointer;
-    color: #fff;
-    font-weight: bold;
-    font-family: 'Georgia', serif;
-    background: url("https://www.transparenttextures.com/patterns/wood-pattern.png"), 
-                linear-gradient(145deg, #5c3d1e, #3e2a15);
-    background-blend-mode: overlay;
-    background-size: cover;
-    box-shadow: 0 0.3rem 0.4rem rgba(0,0,0,0.6),
-                inset -0.2rem -0.2rem 0.4rem rgba(0,0,0,0.4),
-                inset 0.2rem 0.2rem 0.4rem rgba(255,255,255,0.1);
-    transition: all 0.2s ease;
-  }
+/* Stagger rows like phone keyboard */
+.keyboard-row:nth-child(2) { padding-left: 5%; }
+.keyboard-row:nth-child(3) { padding-left: 10%; }
 
-  .keyboard button:hover {
-    background: url("https://www.transparenttextures.com/patterns/wood-pattern.png"), 
-                linear-gradient(145deg, #4b6d35, #2f4d25);
-    background-size: cover;
-    color: #dfffdf;
-    box-shadow: 0 0 1rem #4caf50, inset 0 0 0.5rem rgba(0,0,0,0.7);
-    transform: translateY(-0.2rem) scale(1.05);
-  }
+/* Letter buttons */
+.keyboard button {
+  flex: 1 1 auto;
+  min-width: 2.5rem;
+  max-width: 50px;
+  padding: 0.6rem 0.4rem;
+  font-size: clamp(0.8rem, 2.5vw, 1rem);
+  border: none;
+  border-radius: 0.8rem;
+  font-family: 'Georgia', serif;
+  font-weight: bold;
+  color: #fff;
+  cursor: pointer;
+  background: url("https://www.transparenttextures.com/patterns/wood-pattern.png"),
+              linear-gradient(145deg, #5c3d1e, #3e2a15);
+  background-blend-mode: overlay;
+  background-size: cover;
+  box-shadow: 0 0.3rem 0.4rem rgba(0,0,0,0.6),
+              inset -0.2rem -0.2rem 0.4rem rgba(0,0,0,0.4),
+              inset 0.2rem 0.2rem 0.4rem rgba(255,255,255,0.1);
+  transition: all 0.2s ease;
+}
 
-  .keyboard button:active { transform: translateY(0.2rem) scale(0.95); box-shadow: inset 0 0 0.8rem rgba(0,0,0,0.8); }
+/* Special keys */
+.keyboard button.shift,
+.keyboard button.del,
+.keyboard button.enter { flex: 0 0 30%; min-width: 65px; }
+.keyboard button.space { flex: 0 0 40%; min-width: 80px; }
 
-  .hidden { display: none; }
+/* Hover & active */
+.keyboard button:hover {
+  background: url("https://www.transparenttextures.com/patterns/wood-pattern.png"),
+              linear-gradient(145deg, #4b6d35, #2f4d25);
+  background-size: cover;
+  color: #dfffdf;
+  box-shadow: 0 0 1rem #4caf50, inset 0 0 0.5rem rgba(0,0,0,0.7);
+  transform: translateY(-0.2rem) scale(1.05);
+}
+
+.keyboard button:active {
+  transform: translateY(0.2rem) scale(0.95);
+  box-shadow: inset 0 0 0.8rem rgba(0,0,0,0.8);
+}
+
+.hidden {
+  display: none;
+}
+
 
   /* Envelope container */
   .envelope-container {
@@ -310,47 +339,53 @@ const keyLayout = ["QWERTYUIOP","ASDFGHJKL","ZXCVBNM"];
 
 function renderKeyboard() {
   keyboard.innerHTML = "";
-  keyLayout.forEach(row => {
+
+  // Create rows for letters
+  keyLayout.forEach((row, idx) => {
     const rowDiv = document.createElement("div");
-    rowDiv.style.display = "flex";
-    rowDiv.style.justifyContent = "center";
+    rowDiv.classList.add("keyboard-row");
     row.split("").forEach(letter => {
       const btn = document.createElement("button");
       btn.textContent = isUppercase ? letter.toUpperCase() : letter.toLowerCase();
-      btn.onclick = () => passwordInput.value += isUppercase ? letter.toUpperCase() : letter.toLowerCase();
+      btn.onclick = () => passwordInput.value += btn.textContent;
       rowDiv.appendChild(btn);
     });
     keyboard.appendChild(rowDiv);
   });
 
+  // Control row
   const controlRow = document.createElement("div");
-  controlRow.style.display = "flex";
-  controlRow.style.justifyContent = "center";
-  controlRow.style.gap = "0.5vw";
+  controlRow.classList.add("keyboard-row");
 
   const shift = document.createElement("button");
   shift.textContent = "⇧";
+  shift.classList.add("shift");
   shift.onclick = () => { isUppercase = !isUppercase; renderKeyboard(); };
   controlRow.appendChild(shift);
 
   const del = document.createElement("button");
   del.textContent = "⌫";
+  del.classList.add("del");
   del.onclick = () => passwordInput.value = passwordInput.value.slice(0, -1);
   controlRow.appendChild(del);
 
   const space = document.createElement("button");
   space.textContent = "Space";
+  space.classList.add("space");
   space.onclick = () => passwordInput.value += " ";
-  space.style.flex = "2";
   controlRow.appendChild(space);
 
   const enter = document.createElement("button");
   enter.textContent = "Enter";
+  enter.classList.add("enter");
   enter.onclick = checkPassword;
   controlRow.appendChild(enter);
 
   keyboard.appendChild(controlRow);
 }
+
+// Trigger Enter key
+passwordInput.addEventListener("keyup", e => { if (e.key === "Enter") checkPassword(); });
 
 renderKeyboard();
 passwordInput.addEventListener("keyup", (e) => { if (e.key === "Enter") checkPassword(); });
