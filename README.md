@@ -503,28 +503,30 @@ const keyLayout = [
 
 function renderKeyboard() {
   keyboard.innerHTML = ""; // clear old keys
+
+  // letter rows
   keyLayout.forEach(row => {
     const rowDiv = document.createElement("div");
     rowDiv.style.display = "flex";
     rowDiv.style.justifyContent = "center";
+
     row.split("").forEach(letter => {
       const btn = document.createElement("button");
-btn.textContent = letter;  // always render uppercase
-if (!isUppercase) {
-  btn.style.textTransform = "lowercase";
-} else {
-  btn.style.textTransform = "uppercase";
-}      btn.onclick = () => passwordInput.value += btn.textContent;
+      btn.textContent = isUppercase ? letter.toUpperCase() : letter.toLowerCase(); // display correct case
+      btn.onclick = () => passwordInput.value += isUppercase ? letter.toUpperCase() : letter.toLowerCase();
       rowDiv.appendChild(btn);
     });
+
     keyboard.appendChild(rowDiv);
   });
 
-  // Control row (Shift, Delete, Enter)
+  // control row: Shift, Delete, Enter
   const controlRow = document.createElement("div");
   controlRow.style.display = "flex";
   controlRow.style.justifyContent = "center";
+  controlRow.style.gap = "0.5vw";
 
+  // Shift button
   const shift = document.createElement("button");
   shift.textContent = "⇧";
   shift.onclick = () => {
@@ -533,11 +535,13 @@ if (!isUppercase) {
   };
   controlRow.appendChild(shift);
 
+  // Delete button
   const del = document.createElement("button");
   del.textContent = "⌫";
   del.onclick = () => passwordInput.value = passwordInput.value.slice(0, -1);
   controlRow.appendChild(del);
 
+  // Enter button
   const enter = document.createElement("button");
   enter.textContent = "Enter";
   enter.onclick = checkPassword;
