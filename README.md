@@ -5,7 +5,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>SALINLUNTIAN: SCAVENGER HUNT</title>
 <style>
-  /* General body setup */
   body, html {
     margin: 0;
     padding: 0;
@@ -16,154 +15,100 @@
     color: white;
   }
 
-  /* Canvas for sparks */
   canvas {
     position: fixed;
     top: 0;
     left: 0;
     z-index: 0;
     width: 100vw;
-  height: 100vh;
+    height: 100vh;
     background: #123 url("GreenBG.png") no-repeat center center/cover;
     filter: brightness(0.8);
   }
 
-.watermark {
-  position: fixed;
-  bottom: 1vh;
-  right: 1vw;
-  display: flex;
-  align-items: center;
-  gap: 0.1rem;
-  z-index: 3;
-  pointer-events: none;
-}
+  .watermark {
+    position: fixed;
+    bottom: 1vh;
+    right: 1vw;
+    display: flex;
+    align-items: center;
+    gap: 0.1rem;
+    z-index: 3;
+    pointer-events: none;
+  }
 
-.watermark img {
-  opacity: 0.4;
-  display: block;
-  height: auto;
-}
+  .watermark img {
+    opacity: 0.4;
+    display: block;
+    height: auto;
+  }
 
-.wm-salinluntian { max-height: 4rem; }
-.wm-scavengerhunt { max-height: 1rem; }
+  .wm-salinluntian { max-height: 4rem; }
+  .wm-scavengerhunt { max-height: 1rem; }
 
-.scroll-container {
-  width: 100vw;
-  height: 100vh;
-  overflow-x: auto;  /* allows horizontal scroll */
-  overflow-y: hidden; /* prevent vertical scroll */
-  -webkit-overflow-scrolling: touch; /* smooth scrolling on iOS */
-  scroll-snap-type: x mandatory; /* optional: snap pages */
-}
+  /* Horizontal scroll container */
+  .scroll-container {
+    width: 100vw;
+    height: 100vh;
+    overflow-x: auto;
+    overflow-y: hidden;
+    -webkit-overflow-scrolling: touch;
+    scroll-snap-type: x mandatory;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
 
-.content-wrapper {
-  display: flex;
-  flex-direction: row; /* align children horizontally */
-  min-width: 120vw;    /* wider than viewport so you can scroll */
-  height: 100%;
-  justify-content: center; 
-  align-items: center;
-}
+  .scroll-content {
+    display: flex;
+    flex-direction: row;
+    min-width: 100vw;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+  }
 
+  /* Login container */
   .login-container {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-flex: 0 0 auto;
-scroll-snap-align: center;
-  transform: translate(-50%, -50%);
-  z-index: 2;
-  text-align: center;
-
-  /* REMOVE the box look */
-  background: none;      /* no background */
-  padding: 0;            /* no padding */
-  border: none;          /* no border */
-  box-shadow: none;      /* no shadow */
-
-  max-width: 90vw;
-  width: 350px;
-}
-
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    background: none;
+    padding: 0;
+    border: none;
+    box-shadow: none;
+    max-width: 90vw;
+    width: 350px;
+    scroll-snap-align: center;
+  }
 
   @import url('https://fonts.googleapis.com/css2?family=Baloo+2:wght@700&display=swap');
 
 .login-container h2 {
-  margin-bottom: 2vh;
-  font-size: 2.8rem;
-  font-family: 'Baloo 2', cursive;
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
-
-  /* White polished core */
-  color: white;
-
-  /* Emerald glowing 3D edges */
-  text-shadow: 
-    0 2px 2px rgba(0,0,0,0.6),
-    0 0 8px #00ffcc,
-    0 0 16px #00cc88,
-    0 0 28px #009966;
-
-  position: relative;
-  display: inline-block;
-
-  /* Shine animation (bright → dim → bright) */
-  animation: shinePulse 3s infinite;
-}
-
-@keyframes shinePulse {
-  0% {
-    text-shadow:
+    margin-bottom: 2vh;
+    font-size: 2.8rem; /* same as desktop */
+    font-family: 'Baloo 2', cursive;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: white;
+    text-shadow: 
       0 2px 2px rgba(0,0,0,0.6),
-      0 0 10px #00ffcc,
-      0 0 20px #00cc88,
-      0 0 35px #009966;
-    color: #ffffff;
-  }
-  50% {
-    text-shadow:
-      0 2px 2px rgba(0,0,0,0.6),
-      0 0 5px #00cc88,
-      0 0 10px #009966,
-      0 0 18px #007744;
-    color: #f2f2f2;
-  }
-  100% {
-    text-shadow:
-      0 2px 2px rgba(0,0,0,0.6),
-      0 0 10px #00ffcc,
-      0 0 20px #00cc88,
-      0 0 35px #009966;
-    color: #ffffff;
-  }
+      0 0 8px #00ffcc,
+      0 0 16px #00cc88,
+      0 0 28px #009966;
+    position: relative;
+    display: inline-block;
+    animation: shinePulse 3s infinite;
+    text-align: center; /* ensures text is centered */
 }
 
-/* Spark particles */
-.spark {
-  position: absolute;
-  width: 6px;
-  height: 6px;
-  background: radial-gradient(circle, #ccffcc 40%, #00ff99 100%);
-  border-radius: 50%;
-  animation: fly 4s linear infinite;
-  opacity: 0.8;
-}
-
-/* Different spark starting positions */
-.spark1 { top: -20px; left: -10px; animation-delay: 0s; }
-.spark2 { top: -30px; left: 40%; animation-delay: 1s; }
-.spark3 { top: -25px; left: 80%; animation-delay: 2s; }
-.spark4 { top: -15px; left: 60%; animation-delay: 3s; }
-
-@keyframes fly {
-  0%   { transform: translateY(0) scale(0.5); opacity: 0; }
-  20%  { opacity: 1; }
-  70%  { transform: translateY(140%) scale(1); opacity: 1; }
-  100% { transform: translateY(160%) scale(0.3); opacity: 0; }
-}
-
+/* Remove any @media rules that shrink the font on mobile */
+  @keyframes shinePulse {
+    0% { text-shadow:0 2px 2px rgba(0,0,0,0.6),0 0 10px #00ffcc,0 0 20px #00cc88,0 0 35px #009966; color: #fff; }
+    50% { text-shadow:0 2px 2px rgba(0,0,0,0.6),0 0 5px #00cc88,0 0 10px #009966,0 0 18px #007744; color: #f2f2f2; }
+    100% { text-shadow:0 2px 2px rgba(0,0,0,0.6),0 0 10px #00ffcc,0 0 20px #00cc88,0 0 35px #009966; color: #fff; }
+  }
 
   .login-container input {
     display: block;
@@ -176,33 +121,27 @@ scroll-snap-align: center;
     width: 90%;
     max-width: 220px;
     box-sizing: border-box;
-font-family: 'Courier New', monospace;
-  font-style: italic;
+    font-family: 'Courier New', monospace;
+    font-style: italic;
   }
 
-  
-  /* Virtual keyboard */
-.keyboard {
-  margin-top: 1vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 0.6vh;  /* vertical spacing between rows */
-  width: 100%;
-  background: none; /* removes green background */
-  box-shadow: none;
-  border: none;
-}
+  /* Keyboard styling same as original (buttons, hover, active) */
+  .keyboard {
+    margin-top: 1vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.6vh;
+    width: 100%;
+    background: none;
+    box-shadow: none;
+    border: none;
+  }
 
-.keyboard div {
-  display: flex;
-  justify-content: center;
-  gap: 2vw;
-  width: 100%;
-}
+  .keyboard div { display: flex; justify-content: center; gap: 0.5vw; width: 100%; }
 
   .keyboard button {
-    padding: 0.5rem 0.8rem;
+    padding: 0.8rem 1rem;
     border: none;
     border-radius: 0.8rem;
     font-size: 1rem;
@@ -229,25 +168,18 @@ font-family: 'Courier New', monospace;
     transform: translateY(-0.2rem) scale(1.05);
   }
 
-  .keyboard button:active {
-    transform: translateY(0.2rem) scale(0.95);
-    box-shadow: inset 0 0 0.8rem rgba(0,0,0,0.8);
-  }
+  .keyboard button:active { transform: translateY(0.2rem) scale(0.95); box-shadow: inset 0 0 0.8rem rgba(0,0,0,0.8); }
 
   .hidden { display: none; }
 
   /* Envelope container */
   .envelope-container {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-flex: 0 0 auto;
-scroll-snap-align: center;
-    transform: translate(-50%, -50%);
+    position: relative;
     text-align: center;
     z-index: 2;
-    width: 80vw;
-  max-width: 300px;
+    max-width: 90vw;
+    width: 400px;
+    scroll-snap-align: center;
   }
 
   .envelope-wrapper {
@@ -260,10 +192,7 @@ scroll-snap-align: center;
   .envelope-wrapper::before {
     content: "";
     position: absolute;
-    top: -5%;
-    left: -5%;
-    right: -5%;
-    bottom: -5%;
+    top: -5%; left: -5%; right: -5%; bottom: -5%;
     background: radial-gradient(circle, rgba(255,223,128,0.8) 0%, transparent 70%);
     animation: shimmer 2s infinite alternate;
     filter: blur(2vw);
@@ -278,88 +207,17 @@ scroll-snap-align: center;
     cursor: pointer;
     animation: envelopeGlow 3s infinite alternate;
   }
-@keyframes shakeInput {
-  0%, 100% { transform: translateX(0); }
-  25% { transform: translateX(-5px); }
-  75% { transform: translateX(5px); }
-}
-input.error {
-  animation: shakeInput 0.4s;
-  border: 2px solid red;
-}
-
-  /* Glow around envelope */
-  @keyframes envelopeGlow {
-    from { filter: drop-shadow(0 0 5px gold); }
-    to { filter: drop-shadow(0 0 15px gold); }
-  }
-
-  /* Shaking & shimmer */
-  @keyframes shake {
-    0%, 100% { transform: rotate(0deg); }
-    10% { transform: rotate(-3deg); }
-    20% { transform: rotate(3deg); }
-    30% { transform: rotate(-2deg); }
-    40% { transform: rotate(2deg); }
-    50% { transform: rotate(0deg); }
-  }
-
-  @keyframes shimmer {
-    from { opacity: 0.6; transform: scale(1); }
-    to { opacity: 1; transform: scale(1.05); }
-  }
-
-  /* Gold dust */
-  .gold-dust {
-    position: absolute;
-    border-radius: 50%;
-    background: gold;
-    opacity: 0.8;
-    animation: floatDust linear infinite;
-    pointer-events: none;
-    filter: blur(0.1rem);
-  }
-
-  @keyframes floatDust {
-    0% { transform: translateY(0) scale(1); opacity: 0.8; }
-    50% { transform: translateY(-3vh) scale(1.2); opacity: 0.4; }
-    100% { transform: translateY(0) scale(1); opacity: 0.8; }
-  }
-
-  /* Gold burst effect */
-  .gold-burst {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 0;
-    height: 0;
-    background: radial-gradient(circle, rgba(255,215,0,0.9) 0%, transparent 80%);
-    border-radius: 50%;
-    transform: translate(-50%, -50%);
-    pointer-events: none;
-    z-index: -1;
-    opacity: 0;
-  }
-
-  .gold-burst.active {
-    animation: burst 0.8s forwards;
-  }
-
-  @keyframes burst {
-    0% { width: 0; height: 0; opacity: 1; }
-    100% { width: 40vw; height: 40vw; opacity: 0; }
-  }
 
   /* Letter styling */
-.letter {
+  .letter {
     display: none;
     position: absolute;
     top: -16vh;
     left: 50%;
     transform: translateX(-50%) translateY(0);
     width: 90%;
-  max-width: 280px;
-  min-width: 180px;
+    max-width: 360px;
+    min-width: 200px;
     padding: 4% 5%;
     background: url("paperletter.png") no-repeat center center;
     background-size: 110% 110%;
@@ -371,177 +229,119 @@ input.error {
     transition: all 1s ease;
     z-index: 5;
     box-sizing: border-box;
-}
+  }
 
-.letter h3 {
-    margin-bottom: 1vh;
-    font-size: 1.5rem;
-    text-align: center;
-    color: #2b1f0e;
-    word-wrap: break-word;
-}
+  .letter h3 { margin-bottom: 1vh; font-size: 1.5rem; text-align: center; color: #2b1f0e; }
+  .letter p { margin: 0.5vh 0; font-size: 1rem; text-align: justify; }
 
-.letter p {
-    margin: 0.5vh 0;
-    font-size: 1rem;
-    text-align: justify;
-    word-wrap: break-word;
-}
-
-/* Letter texture overlay */
-.letter::before {
+  .letter::before {
     content: "";
     position: absolute;
-    top: 5%;
-    left: 5%;
-    width: 90%;
-    height: 90%;
+    top: 5%; left: 5%;
+    width: 90%; height: 90%;
     background: url("https://www.transparenttextures.com/patterns/paper-fibers.png");
     opacity: 0.2;
     pointer-events: none;
     background-size: cover;
-}
+  }
 
-.letter::after {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 50%;
-    width: 0.2rem;
-    height: 100%;
-    background: rgba(0,0,0,0.15);
-    opacity: 0.4;
-    pointer-events: none;
-}
-
-/* Show letter */
-.letter.show {
+  .letter.show {
     display: block;
     opacity: 1;
     transform: translateX(-50%) translateY(-5vh);
-}
-@media (max-width: 480px) {
-  .login-container {
-    width: 90vw;
-    padding: 2vw;
   }
-  .login-container h2 { font-size: 1.8rem; }
-  .keyboard button { font-size: 0.9rem; padding: 0.6rem; }
-  .letter { font-size: 0.7rem; padding: 5%; top: -15vh; }
-  .letter h3 { font-size: 1rem; }
-}
 
+  @media (max-width: 480px) { .login-container h2 { font-size: 1.2rem; } }
 </style>
 </head>
 <body>
 <canvas id="sparks"></canvas>
 
-<!-- Preload images -->
-<link rel="preload" href="Envelope.png" as="image">
-<link rel="preload" href="openenve.png" as="image">
-<link rel="preload" href="paperletter.png" as="image">
-
 <div class="scroll-container">
-  <div class="content-wrapper">
-    <!-- existing login, envelope, sparks, watermark elements go here -->
+  <div class="scroll-content">
 
-<div class="login-container" id="login">
-  <h2>Enter Password
-<span class="spark spark1"></span>
-    <span class="spark spark2"></span>
-    <span class="spark spark3"></span>
-    <span class="spark spark4"></span>
-</h2>
-  <input type="text" id="passwordInput" maxlength="21">
-  <div class="keyboard" id="keyboard"></div>
-</div>
-
-<div class="watermark">
-  <img src="SALINLUNTIAN.png" alt="SALINLUNTIAN" class="wm-salinluntian">
-  <img src="scavenger hunt (2).png" alt="Scavenger Hunt" class="wm-scavengerhunt">
-</div>
-  
-<div class="envelope-container hidden" id="envelopeSection">
-  <div class="envelope-wrapper">
-    <div class="gold-burst" id="goldBurst"></div>
-
-    <div class="letter" id="letter">
-      <h3>Congratulations!</h3>
-      <p>
-        Now, guess your senior! <br><br>
-        I am male, 3rd year student, kulot, maputi na mukhang namumutla, BSED yung ID, katamtamang tangkad, and naggrow a garden
-      </p>
+    <div class="login-container" id="login">
+      <h2>Enter Password
+        <span class="spark spark1"></span>
+        <span class="spark spark2"></span>
+        <span class="spark spark3"></span>
+        <span class="spark spark4"></span>
+      </h2>
+      <input type="text" id="passwordInput" maxlength="21">
+      <div class="keyboard" id="keyboard"></div>
     </div>
 
-    <img src="Envelope.png" id="envelope" alt="Envelope">
+    <div class="envelope-container hidden" id="envelopeSection">
+      <div class="envelope-wrapper">
+        <div class="gold-burst" id="goldBurst"></div>
+        <div class="letter" id="letter">
+          <h3>Congratulations!</h3>
+          <p>
+            Now, guess your senior! <br><br>
+            I am male, 3rd year student, kulot, maputi na mukhang namumutla, BSED yung ID, katamtamang tangkad, and naggrow a garden
+          </p>
+        </div>
+        <img src="Envelope.png" id="envelope" alt="Envelope">
+        <div class="gold-dust" style="top:5%; left:10%; width:0.4rem; height:0.4rem; animation-duration:5s;"></div>
+        <div class="gold-dust" style="top:15%; left:35%; width:0.5rem; height:0.5rem; animation-duration:6s;"></div>
+        <div class="gold-dust" style="top:25%; left:60%; width:0.3rem; height:0.3rem; animation-duration:4s;"></div>
+        <div class="gold-dust" style="top:10%; left:80%; width:0.6rem; height:0.6rem; animation-duration:7s;"></div>
+        <div class="gold-dust" style="top:20%; left:5%; width:0.5rem; height:0.5rem; animation-duration:5.5s;"></div>
+      </div>
+    </div>
 
-    <!-- Floating gold dust -->
-    <div class="gold-dust" style="top:5%; left:10%; width:0.4rem; height:0.4rem; animation-duration:5s;"></div>
-    <div class="gold-dust" style="top:15%; left:35%; width:0.5rem; height:0.5rem; animation-duration:6s;"></div>
-    <div class="gold-dust" style="top:25%; left:60%; width:0.3rem; height:0.3rem; animation-duration:4s;"></div>
-    <div class="gold-dust" style="top:10%; left:80%; width:0.6rem; height:0.6rem; animation-duration:7s;"></div>
-    <div class="gold-dust" style="top:20%; left:5%; width:0.5rem; height:0.5rem; animation-duration:5.5s;"></div>
+    <div class="watermark">
+      <img src="SALINLUNTIAN.png" alt="SALINLUNTIAN" class="wm-salinluntian">
+      <img src="scavenger hunt (2).png" alt="Scavenger Hunt" class="wm-scavengerhunt">
+    </div>
+
   </div>
-</div>
-
-</div>
 </div>
 
 <script>
 const correctPassword = "Hydrilla verticillata";
 const keyboard = document.getElementById("keyboard");
 const passwordInput = document.getElementById("passwordInput");
-
 let isUppercase = true;
 
-// Phone-like layout
-const keyLayout = [
-  "QWERTYUIOP",
-  "ASDFGHJKL",
-  "ZXCVBNM"
-];
+const keyLayout = ["QWERTYUIOP","ASDFGHJKL","ZXCVBNM"];
 
 function renderKeyboard() {
-  keyboard.innerHTML = ""; // clear old keys
-
-  // letter rows
+  keyboard.innerHTML = "";
   keyLayout.forEach(row => {
     const rowDiv = document.createElement("div");
     rowDiv.style.display = "flex";
     rowDiv.style.justifyContent = "center";
-
     row.split("").forEach(letter => {
       const btn = document.createElement("button");
-      btn.textContent = isUppercase ? letter.toUpperCase() : letter.toLowerCase(); // display correct case
+      btn.textContent = isUppercase ? letter.toUpperCase() : letter.toLowerCase();
       btn.onclick = () => passwordInput.value += isUppercase ? letter.toUpperCase() : letter.toLowerCase();
       rowDiv.appendChild(btn);
     });
-
     keyboard.appendChild(rowDiv);
   });
 
-  // control row: Shift, Delete, Enter
   const controlRow = document.createElement("div");
   controlRow.style.display = "flex";
   controlRow.style.justifyContent = "center";
   controlRow.style.gap = "0.5vw";
 
-  // Shift button
   const shift = document.createElement("button");
   shift.textContent = "⇧";
-  shift.onclick = () => {
-    isUppercase = !isUppercase;
-    renderKeyboard(); // re-render with new case
-  };
+  shift.onclick = () => { isUppercase = !isUppercase; renderKeyboard(); };
   controlRow.appendChild(shift);
 
-  // Delete button
   const del = document.createElement("button");
   del.textContent = "⌫";
   del.onclick = () => passwordInput.value = passwordInput.value.slice(0, -1);
   controlRow.appendChild(del);
 
-  // Enter button
+  const space = document.createElement("button");
+  space.textContent = "Space";
+  space.onclick = () => passwordInput.value += " ";
+  space.style.flex = "2";
+  controlRow.appendChild(space);
+
   const enter = document.createElement("button");
   enter.textContent = "Enter";
   enter.onclick = checkPassword;
@@ -551,22 +351,15 @@ function renderKeyboard() {
 }
 
 renderKeyboard();
-
-// allow Enter key on real keyboard
-passwordInput.addEventListener("keyup", (e) => {
-  if (e.key === "Enter") checkPassword();
-});
-
+passwordInput.addEventListener("keyup", (e) => { if (e.key === "Enter") checkPassword(); });
 
 function checkPassword() {
   if (passwordInput.value.trim().toUpperCase() === correctPassword.toUpperCase()) {
-    flashSparks("green");
-    speedBoost();
+    flashSparks("green"); speedBoost();
     document.getElementById("login").classList.add("hidden");
     document.getElementById("envelopeSection").classList.remove("hidden");
   } else {
-    flashSparks("red");
-    speedBoost();
+    flashSparks("red"); speedBoost();
     passwordInput.classList.add("error");
     setTimeout(() => passwordInput.classList.remove("error"), 400);
     passwordInput.value = "";
@@ -581,76 +374,37 @@ let isOpened = false;
 envelope.addEventListener("click", () => {
   if (isOpened) return;
   envelope.src = "openenve.png";
-
   goldBurst.classList.remove("active"); 
   void goldBurst.offsetWidth; 
   goldBurst.classList.add("active");
-
   letter.classList.add("show");
-  flashSparks("green");
-  speedBoost();
-
+  flashSparks("green"); speedBoost();
   isOpened = true;
 });
 
-// Sparks animation
 const canvas = document.getElementById("sparks");
 const ctx = canvas.getContext("2d");
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
-
 let sparks = [];
-const numSparks = window.innerWidth < 480 ? 50 : 100;
-
+const numSparks = 100;
 for (let i = 0; i < numSparks; i++) {
-  sparks.push({
-    x: Math.random() * canvas.width,
-    y: Math.random() * canvas.height,
-    radius: Math.random() * 2 + 1,
-    dx: (Math.random() - 0.5) * 0.6,
-    dy: (Math.random() - 0.5) * 0.6,
-    color: "yellow",
-  });
+  sparks.push({ x: Math.random() * canvas.width, y: Math.random() * canvas.height, radius: Math.random() * 2 + 1, dx: (Math.random() - 0.5) * 0.6, dy: (Math.random() - 0.5) * 0.6, color: "yellow"});
 }
-
 function drawSparks() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   sparks.forEach(s => {
-    ctx.beginPath();
-    ctx.arc(s.x, s.y, s.radius, 0, Math.PI * 2);
-    ctx.fillStyle = s.color;
-    ctx.shadowColor = s.color;
-    ctx.shadowBlur = 15;
-    ctx.fill();
-
-    s.x += s.dx;
-    s.y += s.dy;
-
+    ctx.beginPath(); ctx.arc(s.x, s.y, s.radius, 0, Math.PI * 2); ctx.fillStyle = s.color; ctx.shadowColor = s.color; ctx.shadowBlur = 15; ctx.fill();
+    s.x += s.dx; s.y += s.dy;
     if (s.x < 0 || s.x > canvas.width) s.dx *= -1;
     if (s.y < 0 || s.y > canvas.height) s.dy *= -1;
   });
   requestAnimationFrame(drawSparks);
 }
 drawSparks();
-
-function flashSparks(color) {
-  sparks.forEach(s => s.color = color);
-  setTimeout(() => {
-    sparks.forEach(s => s.color = "yellow");
-  }, 600);
-}
-
-function speedBoost() {
-  sparks.forEach(s => { s.dx *= 3; s.dy *= 3; });
-  setTimeout(() => {
-    sparks.forEach(s => { s.dx /= 3; s.dy /= 3; });
-  }, 800);
-}
-
-window.onresize = () => {
-  canvas.width = window.innerWidth;
-  canvas.height = window.innerHeight;
-};
+function flashSparks(color) { sparks.forEach(s => s.color = color); setTimeout(() => { sparks.forEach(s => s.color = "yellow"); }, 600); }
+function speedBoost() { sparks.forEach(s => { s.dx *= 3; s.dy *= 3; }); setTimeout(() => { sparks.forEach(s => { s.dx /= 3; s.dy /= 3; }); }, 800); }
+window.onresize = () => { canvas.width = window.innerWidth; canvas.height = window.innerHeight; };
 </script>
 </body>
 </html>
