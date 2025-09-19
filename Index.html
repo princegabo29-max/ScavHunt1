@@ -449,7 +449,7 @@ input.error {
       <h3>Congratulations!</h3>
       <p>
         Now, guess your senior! <br><br>
-        I am male, 3rd year students, kulot, maputi na mukhang namumutla, BSED yung ID, katamtamang tangkad, and naggrow a garden
+        I am male, 3rd year student, kulot, maputi na mukhang namumutla, BSED yung ID, katamtamang tangkad, and naggrow a garden
       </p>
     </div>
 
@@ -532,7 +532,7 @@ passwordInput.addEventListener("keyup", (e) => {
 
 
 function checkPassword() {
-  if (passwordInput.value.toUpperCase() === correctPassword) {
+  if (passwordInput.value.trim().toUpperCase() === correctPassword.toUpperCase()) {
     flashSparks("green");
     speedBoost();
     document.getElementById("login").classList.add("hidden");
@@ -545,7 +545,6 @@ function checkPassword() {
     passwordInput.value = "";
   }
 }
-
 
 const envelope = document.getElementById("envelope");
 const goldBurst = document.getElementById("goldBurst");
@@ -628,4 +627,3 @@ window.onresize = () => {
 </script>
 </body>
 </html>
-
