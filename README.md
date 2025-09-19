@@ -48,12 +48,30 @@
 .wm-salinluntian { max-height: 4rem; }
 .wm-scavengerhunt { max-height: 1rem; }
 
-  /* Login container */
-  /* Login container */
-.login-container {
+.scroll-container {
+  width: 100vw;
+  height: 100vh;
+  overflow-x: auto;  /* allows horizontal scroll */
+  overflow-y: hidden; /* prevent vertical scroll */
+  -webkit-overflow-scrolling: touch; /* smooth scrolling on iOS */
+  scroll-snap-type: x mandatory; /* optional: snap pages */
+}
+
+.content-wrapper {
+  display: flex;
+  flex-direction: row; /* align children horizontally */
+  min-width: 120vw;    /* wider than viewport so you can scroll */
+  height: 100%;
+  justify-content: center; 
+  align-items: center;
+}
+
+  .login-container {
   position: absolute;
   top: 50%;
   left: 50%;
+flex: 0 0 auto;
+scroll-snap-align: center;
   transform: translate(-50%, -50%);
   z-index: 2;
   text-align: center;
@@ -223,6 +241,8 @@ font-family: 'Courier New', monospace;
     position: absolute;
     top: 50%;
     left: 50%;
+flex: 0 0 auto;
+scroll-snap-align: center;
     transform: translate(-50%, -50%);
     text-align: center;
     z-index: 2;
@@ -421,6 +441,10 @@ input.error {
 <link rel="preload" href="openenve.png" as="image">
 <link rel="preload" href="paperletter.png" as="image">
 
+<div class="scroll-container">
+  <div class="content-wrapper">
+    <!-- existing login, envelope, sparks, watermark elements go here -->
+
 <div class="login-container" id="login">
   <h2>Enter Password
 <span class="spark spark1"></span>
@@ -458,6 +482,9 @@ input.error {
     <div class="gold-dust" style="top:10%; left:80%; width:0.6rem; height:0.6rem; animation-duration:7s;"></div>
     <div class="gold-dust" style="top:20%; left:5%; width:0.5rem; height:0.5rem; animation-duration:5.5s;"></div>
   </div>
+</div>
+
+</div>
 </div>
 
 <script>
